@@ -3,7 +3,25 @@
     font-family: Arial, sans-serif;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 body {
+    margin: 0;
+}
+
+h1 {
+    font-size: 4em;
+    margin: 20px 0;
+}
+
+.main_image {
+    width: 10vw;
+}
+
+.main_div {
     background-color: black;
     color: white;
     display: flex;
@@ -14,9 +32,18 @@ body {
     margin: 0;
 }
 
-h1 {
-    font-size: 4em;
-    margin: 20px 0;
+.inline_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 @keyframes dot-blink {
@@ -36,6 +63,30 @@ h1 {
     flex-direction: column;
     height: 50vh;
     align-items: center;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px;
+    background-color: #0a0a0a;
+    height: 10vh;
+    align-items: end;
+}
+
+.navbar {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    color: white;
+    height: 100%;
+    align-items: end;
+}
+
+.navbar p {
+    margin: 0 10px;
 }
 
 @media (max-width: 640px) {
