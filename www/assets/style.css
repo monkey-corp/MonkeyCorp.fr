@@ -28,8 +28,8 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0;
+    height: 90vh;
 }
 
 .inline_container {
