@@ -10,6 +10,7 @@ a {
 
 body {
     margin: 0;
+    background-color: black;
 }
 
 h1 {
@@ -22,7 +23,6 @@ h1 {
 }
 
 .main_div {
-    background-color: black;
     color: white;
     display: flex;
     flex-direction: column;
@@ -30,6 +30,15 @@ h1 {
     align-items: center;
     margin: 0;
     height: 90vh;
+}
+
+.footer {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 .inline_container {
