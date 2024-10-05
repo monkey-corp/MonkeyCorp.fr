@@ -1,1 +1,18 @@
+# IDEs
+
+## VS Code
+
+.vscode/
+.devcontainer/
+
+# Projet
+
+## Gestion/bac à sable
+
 .idea
+.idea/
+
+## Dépendances
+
+node_modules/
+.pnpm-store/
