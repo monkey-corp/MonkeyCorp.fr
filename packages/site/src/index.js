@@ -1,15 +1,28 @@
 //TODO
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import './index.scss';
+import Router from './Router';
 import reportWebVitals from './reportWebVitals';
+import {IntlProvider} from 'react-intl'
+import './common.scss'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import {en} from './lang/en.js'
+import {fr} from './lang/fr.js'
 
+const messages = {
+  'en': en,
+  'fr': fr,
+}
+
+const language = navigator.language.split(/[-_]/)[0]
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <App />
+    <IntlProvider onError={()=>{}} locale={navigator.language} messages={messages[language]}>
+      <Router />
+    </IntlProvider>
   </React.StrictMode>
 );
 

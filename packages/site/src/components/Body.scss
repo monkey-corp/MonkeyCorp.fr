@@ -1,0 +1,32 @@
+.body{
+    color: var(--primary-text-color);
+    font-size: 20px;
+    font-weight: 500;
+
+    &.large{
+        font-size: 24px;
+    }
+
+    &.small{
+        font-size: 16px;
+    }
+
+    &.uppercase{
+        text-transform: uppercase;
+    }
+}
+
+@media screen and (max-width:600px){
+    .body{
+        font-size: 14px;
+    
+        &.large{
+            font-size: 18px;
+        }
+    
+        &.small{
+            font-size: 12px;
+        }
+    }
+    
+}
