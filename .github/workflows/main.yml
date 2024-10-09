@@ -10,16 +10,13 @@ jobs:
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
-
+      - name: 🏗️ Build
+        run: |
+          pnpm run -r build
       - name: 📦 Install dependencies
         run: |
           npm install -g pnpm
           pnpm install
-
-      - name: 🏗️ Build
-        run: |
-          pnpm run -r build
-
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
