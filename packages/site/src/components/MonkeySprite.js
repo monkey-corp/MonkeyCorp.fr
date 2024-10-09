@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect} from 'react'
 import './MonkeySprite.scss'
 
 import SinjR1 from './../assets/sprites/sinj_right_1.png'
@@ -21,7 +21,7 @@ const MonkeySprite = (props) => {
 
     return (
         <div className='MonkeySprite'>
-            <img src={sprites[sprite]}/>
+            <img src={sprites[sprite]} alt={}/>
         </div>
     )
 }

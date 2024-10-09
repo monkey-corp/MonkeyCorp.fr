@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from "react";
+import React from "react";
 import { useIntl } from "react-intl";
 import './Footer.scss'
 import Body from './Body'
