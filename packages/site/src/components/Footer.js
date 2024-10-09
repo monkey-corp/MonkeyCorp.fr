@@ -1,10 +1,10 @@
 import React from "react";
-import { useIntl } from "react-intl";
+// import { useIntl } from "react-intl";
 import './Footer.scss'
 import Body from './Body'
 
 const Footer = (props) => {
-    const intl = useIntl()
+    // const intl = useIntl()
 
     return (
         <div className="footer">

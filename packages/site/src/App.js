@@ -10,7 +10,7 @@ const App = (props) => {
 
   useEffect(()=>{
     if(params['*'] !== '') navigate('/')
-  }, [])
+  }, [navigate, params])
 
   return (
     <div className="App">
