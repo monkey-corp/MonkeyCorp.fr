@@ -5,6 +5,10 @@
 .vscode/
 .devcontainer/
 
+## WSL
+
+*:Zone.Identifier
+
 # Projet
 
 ## Gestion/bac à sable
