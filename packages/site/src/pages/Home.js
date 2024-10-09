@@ -13,6 +13,7 @@ const Home = () => {
             <div className="home-container">
                 <div className="home-content">
                     <div className="logo"><img src={Logo} alt=""/></div>
+                    test
                     <div className="in-comming-text">
                         <div className="in-comming-sprite">
                             <MonkeySprite/>
