@@ -21,7 +21,7 @@ const MonkeySprite = (props) => {
 
     return (
         <div className='MonkeySprite'>
-            <img src={sprites[sprite]} alt={}/>
+            <img src={sprites[sprite]} alt=""/>
         </div>
     )
 }
