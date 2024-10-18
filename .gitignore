@@ -5,22 +5,23 @@
 .vscode/
 .devcontainer/
 
+## IDEA
+
+.idea/
+
 ## WSL
 
 *:Zone.Identifier
 
 # Projet
 
-## Gestion/bac à sable
-
-.idea
-.idea/
-
 ## Dépendances
 
 node_modules/
 .pnpm-store/
+database/datavolume/
 
 ## Build
 
 coverage/
+*.secret

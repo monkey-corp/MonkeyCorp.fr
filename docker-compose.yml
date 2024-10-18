@@ -1,0 +1,26 @@
+services:
+
+  db:
+    build: ./database/
+    # Run context
+    ports:
+      - "3307:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    # Secrets
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
+    secrets:
+      - mysql_root_password
+    # Watch (TODO: docker-compose.dev.yml -> delete volume db-data on rebuild -> clean db for testing)
+    # develop:
+    #   watch:
+    #     - action: rebuild
+    #       path: ./database/
+
+secrets:
+  mysql_root_password:
+    file: ./database/root-password.secret
+
+volumes:
+  db-data:
