@@ -1,8 +1,11 @@
 export default class Country
 {
-    constructor({key, name, flag} = {}) {
-        this.key = key
+    constructor({id, createdAt, updatedAt, name, flags = []} = {}) {
+        this.id = id
+        this.createdAt = createdAt
+        this.updatedAt = updatedAt
+
         this.name = name
-        this.flag = flag
+        this.flags = flags
     }
 }

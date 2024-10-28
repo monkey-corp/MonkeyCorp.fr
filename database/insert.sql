@@ -18,7 +18,7 @@ INSERT INTO IMAGE(ID, DATA, ALT)
 VALUES(1, 0, 'test-small-about');
 
 INSERT INTO PARAGRAPH (ID, CONTENT) 
-VALUES (1, 'About test 2');
+VALUES (2, 'About test 2');
 
 INSERT INTO ABOUT_PARAGRAPH (ABOUT_ID, PARAGRAPH_ID)
 VALUES (2, 2);
@@ -29,10 +29,10 @@ VALUES (2, 1);
 # Minimal country : 1 image (ID 1)
 
 INSERT INTO COUNTRY(ID, NAME)
-VALUES (1, 'Minimal country')
+VALUES (1, 'Minimal country');
 
 INSERT INTO IMAGE(ID, DATA, ALT)
-VALUES (2, 0, 'test-minimal-country')
+VALUES (2, 0, 'test-minimal-country');
 
 INSERT INTO COUNTRY_IMAGE (COUNTRY_ID, IMAGE_ID)
-VALUES (1, 2)
+VALUES (1, 2);
