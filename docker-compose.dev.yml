@@ -1,0 +1,51 @@
+# Defines services to use in DEVELOPMENT or for TESTING purposes
+
+services:
+
+  db-dev:
+    extends:
+      file: docker-compose.core.yml
+      service: db-core
+    build: 
+      target: test
+    # Run context
+    ports:
+      - 8005:3306
+    volumes:
+      - db-dev-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_HOST=% # Permits everyone!
+
+  api-dev:
+    extends:
+      file: docker-compose.core.yml
+      service: api-core
+    build: 
+      target: dev
+    # Run context
+    ports:
+      - 8006:5000
+    depends_on:
+      db-dev:
+        condition: service_healthy
+        restart: true
+    links:
+      - db-dev
+    # Watch
+    develop:
+      watch:
+        - action: sync
+          path: ./packages/api
+          target: /api
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./packages/api/package.json
+
+secrets:
+  mysql_root_password:
+    # SAME SECRET AS PROD DATABASE
+    file: ./database/root-password.secret
+
+volumes:
+  db-dev-data:

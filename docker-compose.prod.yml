@@ -1,0 +1,46 @@
+# Defines the services to use in PRODUCTION
+
+services:
+
+  db:
+    extends:
+      file: docker-compose.core.yml
+      service: db-core
+    build:
+      target: prod
+    # Run context
+    ports:
+      - 8000:3306
+    volumes:
+      - db-data:/var/lib/mysql
+    # Secrets
+    environment:
+      MYSQL_ROOT_HOST=/run/secrets/mysql_root_host
+    secrets:
+      - mysql_root_host
+
+  api:
+    extends:
+      file: docker-compose.core.yml
+      service: api-core
+    build: 
+      target: prod
+    # Run context
+    ports:
+      - 8001:5000
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+    links:
+      - db
+
+secrets:
+  mysql_root_password:
+    file: ./database/root-password.secret
+  mysql_root_host:
+    file: ./database/root-host.secret
+
+volumes:
+  db-data:
+  node-modules-api:

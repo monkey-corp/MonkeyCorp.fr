@@ -1,0 +1,23 @@
+# Defines common properties for services. DO NOT USE DIRECTLY
+
+services:
+
+  db-core:
+    build:
+      context: ./database/
+      dockerfile: Dockerfile
+    # Run context
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      retries: 10
+      timeout: 20s
+    # Secrets
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
+    secrets:
+      - mysql_root_password
+
+  api-core:
+    build: 
+      context: ./packages/api
+      dockerfile: Dockerfile
