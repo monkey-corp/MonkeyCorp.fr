@@ -1,4 +1,5 @@
 import mysql from 'mysql2/promise'
+import DatabaseConnectionError from '../../src/error/DatabaseConnectionError'
 
 export default class Helper
 {
@@ -14,9 +15,19 @@ export default class Helper
     static #db = null
 
     static async getConnexion() {
-        if(this.#db == null) {
-            this.#db = await mysql.createConnection(this.dbConfig)
-        }
+        if(this.#db == null) 
+            try {
+                this.#db = await mysql.createConnection(this.dbConfig)
+            }
+            catch(err) {
+                throw new DatabaseConnectionError(err)
+            }
         return this.#db
+    }
+
+    static expectMatch(obj, toMatch) {
+        expect(obj).toMatchObject(toMatch)
+        expect(obj).toHaveProperty('createdAt')
+        expect(obj).toHaveProperty('updatedAt')
     }
 }
