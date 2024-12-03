@@ -1,7 +1,7 @@
 export default class SqlQueryError extends Error
 {
-    constructor(message = '', ...data) {
-        super(message, data)
+    constructor(message: string, options?: ErrorOptions) {
+        super(message, options)
 
         this.message = 'Error in SQL query: ' + message
     }

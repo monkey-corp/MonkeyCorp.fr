@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
+
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+
+    "preserveSymlinks": true
+  },
+  "exclude": [
+    "test/*"
+  ]
+}
