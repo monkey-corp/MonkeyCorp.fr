@@ -1,7 +1,10 @@
-import AboutSql from '../../../src/sql/AboutSql.js'
-import Helper from '../Helper.js'
+import { beforeAll, afterAll, describe, it } from '@jest/globals'
+import AboutSql from '../../../src/sql/AboutSql.ts'
+import Helper from '../Helper.ts'
+import { Connection } from 'mysql2/promise'
+import { expect } from '@jest/globals'
 
-let db = null
+let db: Connection
 
 beforeAll(async () => {
     db = await Helper.getConnexion()

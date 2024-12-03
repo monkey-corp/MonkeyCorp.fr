@@ -1,7 +1,9 @@
-import FightSql from "../../../src/sql/FightSql"
-import Helper from "../Helper"
+import { beforeAll, afterAll, describe, it, expect } from "@jest/globals"
+import FightSql from "../../../src/sql/FightSql.ts"
+import Helper from "../Helper.ts"
+import { Connection } from "mysql2/promise"
 
-let db = null
+let db: Connection 
 
 beforeAll(async () => {
     db = await Helper.getConnexion()

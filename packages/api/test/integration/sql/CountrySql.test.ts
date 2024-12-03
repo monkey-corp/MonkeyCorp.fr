@@ -1,7 +1,9 @@
-import CountrySql from "../../../src/sql/CountrySql"
-import Helper from "../Helper.js"
+import { beforeAll, afterAll, describe, it, expect } from "@jest/globals"
+import CountrySql from "../../../src/sql/CountrySql.ts"
+import Helper from "../Helper.ts"
+import { Connection } from "mysql2/promise"
 
-let db = null
+let db: Connection
 
 beforeAll(async () => {
     db = await Helper.getConnexion()
@@ -14,7 +16,7 @@ afterAll(async () => {
 const minimal = {
     id: 1,
     name: 'Minimal country',
-    flags: [1]
+    images: [1]
 }
 
 describe('CountrySql', () => {

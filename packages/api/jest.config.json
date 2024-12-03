@@ -1,5 +1,18 @@
 {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+
+    "roots": ["<rootDir>/test"],
+    "moduleFileExtensions": ["js", "ts", "tsx"],
+    "moduleNameMapper": {
+        "^@/(.*)$": "<rootDir>/src/$1"
+    },
+
     "clearMocks": true,
     "collectCoverage": true,
-    "coverageDirectory": "coverage"
+    "coverageDirectory": "coverage",
+
+    "transform": {
+        "^.+\\.tsx?$": "ts-jest"
+    }
 }

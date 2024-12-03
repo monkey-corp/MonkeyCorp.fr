@@ -6,7 +6,13 @@
     "noEmit": true,
     "allowImportingTsExtensions": true,
 
-    "preserveSymlinks": true
+    "preserveSymlinks": true,
+
+    "target": "ES2022",
+    "lib": ["ES2022"],
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "test/*"
