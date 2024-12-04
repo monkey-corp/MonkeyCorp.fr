@@ -37,29 +37,5 @@ export default class HistorySql extends BaseSql<History, HistoryRow>
                 title: row.TITLE
             })
         )
-
-
-        const histories: History[] = []; let history: History
-        // fill the return array with unique HISTORY
-        for(let i = 0; i < res.length; i++) {
-            // continue if ID already done (possible with ORDER BY)
-            if(i != 0 && res[i - 1].ID == res[i].ID) continue
-
-            // create model object
-            history = new History({
-                id: res[i].ID,
-                createdAt: res[i].CREATED_AT,
-                updatedAt: res[i].UPDATED_AT,
-
-                title: res[i].TITLE
-            })
-            // get rows with same ID and fill foreign keys
-            for(let j = i; j < res.length && res[j].ID == res[i].ID; j++)
-                history = this.fillForeignKeys(history, res[j])
-
-            histories.push(history)
-        }
-
-        return histories
     }
 }

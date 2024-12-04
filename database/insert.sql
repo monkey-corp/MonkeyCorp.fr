@@ -85,3 +85,13 @@ VALUES (
     'Simple image'
 );
 
+-- Minimal news: 1 title, 1 summary, 1 paragraph, 1 person (author)
+
+INSERT INTO NEWS(ID, TITLE, SUMMARY)
+VALUES (1, 'Minimal news', 'A summary');
+
+INSERT INTO NEWS_PARAGRAPH(NEWS_ID, PARAGRAPH_ID)
+VALUES (1, 1);
+
+INSERT INTO NEWS_PERSON(NEWS_ID, PERSON_ID)
+VALUES (1, 1);

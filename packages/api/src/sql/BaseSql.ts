@@ -63,7 +63,7 @@ export default abstract class BaseSql<T extends BaseModel, U extends BaseRow>
     ): T | T & (ParagraphAggreg | ImageAggreg | PersonAggreg) {
 
         if(row.PARAGRAPH_ID) {
-            if(!(obj as ParagraphAggreg)) 
+            if(!(obj as ParagraphAggreg).paragraphs) 
                 throw new ImplementationError(
                     `Object of type ${obj.constructor.name} does not implement ParagraphAggreg (got PARAGRAPH_ID).`
                 );
@@ -71,7 +71,7 @@ export default abstract class BaseSql<T extends BaseModel, U extends BaseRow>
         }
 
         if(row.IMAGE_ID) {
-            if(!(obj as ImageAggreg))
+            if(!(obj as ImageAggreg).images)
                 throw new ImplementationError(
                     `Object of type ${obj.constructor.name} does not implement ImageAggreg (got IMAGE_ID).`
                 );
@@ -79,9 +79,9 @@ export default abstract class BaseSql<T extends BaseModel, U extends BaseRow>
         }
 
         if(row.PERSON_ID) {
-            if(!(obj as PersonAggreg))
+            if(!(obj as PersonAggreg).persons)
                 throw new ImplementationError(
-                    `Object of type ${obj.constructor.name} does not implement ImplementationError (got PERSON_ID).`
+                    `Object of type ${obj.constructor.name} does not implement PersonAggreg (got PERSON_ID).`
                 );
             (obj as PersonAggreg).persons.push(row.PERSON_ID)
         }
