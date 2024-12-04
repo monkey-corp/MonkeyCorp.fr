@@ -100,3 +100,8 @@ VALUES (1, 1);
 
 INSERT INTO PARAGRAPH(ID, CONTENT)
 VALUES (2, 'A minimal paragraph');
+
+-- Minimal person: 1 name, 1 surname, 1 email, 1 gender
+
+INSERT INTO PERSON(ID, NAME, SURNAME, EMAIL, GENDER)
+VALUES (2, 'Minimal', 'Person', 'minimal.person@mail.com', 'O');

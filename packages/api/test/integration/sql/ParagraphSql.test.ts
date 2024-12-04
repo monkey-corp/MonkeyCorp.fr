@@ -21,7 +21,7 @@ const minimal = {
 describe('ParagraphSql', () => {
     describe('when PARAGRAPH are loaded with keys', () => { 
         describe('and the keys are: 2', () => {
-            it('sould return: minimal', async() => {
+            it('should return: minimal', async() => {
                 const paragraphSql = new ParagraphSql(db)
                 const paragraphs = await paragraphSql.findByIds([2])
 
