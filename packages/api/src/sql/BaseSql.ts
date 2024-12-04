@@ -4,6 +4,7 @@ import SqlQueryError from '../error/SqlQueryError.ts'
 import { BaseModel } from "../model/BaseModel.ts";
 import { ImageAggregRow, ParagraphAggregRow, PersonAggregRow } from "./AggregationsSql.ts";
 import { ImageAggreg, ParagraphAggreg, PersonAggreg } from "../model/Aggregations.ts";
+import ImplementationError from "../error/ImplementationError.ts";
 
 export interface BaseRow extends RowDataPacket
 {
@@ -39,34 +40,72 @@ export default abstract class BaseSql<T extends BaseModel, U extends BaseRow>
     protected getSelect(): string {throw new NotImplementedError(`Method BaseSql.getSelect() must be implemented for class ${this.constructor.name}`)}
 
     /**
-     * Puts some lines'forein keys in the relevant arrays
+     * Puts some rows'forein keys in the relevant arrays
      */
     protected fillForeignKeysFromLines(
-        obj: T & (ParagraphAggreg | ImageAggreg | PersonAggreg), 
-        lines: (U & (ParagraphAggregRow | ImageAggregRow | PersonAggregRow))[]
-    ): T {
-        for(let line of lines) {
-            this.fillForeignKeys(obj, line)
-        }
+        obj: T | T & (ParagraphAggreg | ImageAggreg | PersonAggreg), 
+        rows: (U | ParagraphAggregRow | ImageAggregRow | PersonAggregRow)[]
+    ): T | T & (ParagraphAggreg | ImageAggreg | PersonAggreg) {
+        for(let row of rows) 
+            this.fillForeignKeys(obj, row)
+        
         return obj
     }
 
     /**
-     * Puts a line's forein keys in the relevant arrays
+     * Puts a row's forein keys in the relevant arrays. Throws an error
+     * when a foreign key is present in the row but `obj` does not
+     * implement the associated interface.
      */
     protected fillForeignKeys(
-        obj: T & (ParagraphAggreg | ImageAggreg | PersonAggreg), 
-        line: U & (ParagraphAggregRow | ImageAggregRow | PersonAggregRow)
-    ): T {
-        if(line.PARAGRAPH_ID != null)
-            (obj as ParagraphAggreg).paragraphs.push(line.PARAGRAPH_ID)
+        obj: T | T & (ParagraphAggreg | ImageAggreg | PersonAggreg),
+        row: U | ParagraphAggregRow | ImageAggregRow | PersonAggregRow
+    ): T | T & (ParagraphAggreg | ImageAggreg | PersonAggreg) {
 
-        if(line.IMAGE_ID != null)
-            (obj as ImageAggreg).images.push(line.IMAGE_ID)
+        if(row.PARAGRAPH_ID) {
+            if(!(obj as ParagraphAggreg)) 
+                throw new ImplementationError(
+                    `Object of type ${obj.constructor.name} does not implement ParagraphAggreg (got PARAGRAPH_ID).`
+                );
+            (obj as ParagraphAggreg).paragraphs.push(row.PARAGRAPH_ID)
+        }
 
-        if(line.PERSON_ID != null)
-            (obj as PersonAggreg).persons.push(line.PERSON_ID)
+        if(row.IMAGE_ID) {
+            if(!(obj as ImageAggreg))
+                throw new ImplementationError(
+                    `Object of type ${obj.constructor.name} does not implement ImageAggreg (got IMAGE_ID).`
+                );
+            (obj as ImageAggreg).images.push(row.IMAGE_ID)
+        }
+
+        if(row.PERSON_ID) {
+            if(!(obj as PersonAggreg))
+                throw new ImplementationError(
+                    `Object of type ${obj.constructor.name} does not implement ImplementationError (got PERSON_ID).`
+                );
+            (obj as PersonAggreg).persons.push(row.PERSON_ID)
+        }
 
         return obj
+    }
+
+    protected fill(rows: U[], createModel: (row: U) => T): T[] {
+        const res: T[] = []; let model: T
+
+        // fill the return array with unique entries
+        for(let i = 0; i < rows.length; i++) {
+            // continue if ID already done (possible with ORDER BY)
+            if(i != 0 && rows[i - 1].ID == rows[i].ID) continue
+            
+            model = createModel(rows[i])
+
+            // get rows with same ID and fill foreign keys
+            for(let j = i; j < rows.length && rows[j].ID == rows[i].ID; j++)
+                model = this.fillForeignKeys(model, rows[j])
+            
+            res.push(model)
+        }
+
+        return res
     }
 }

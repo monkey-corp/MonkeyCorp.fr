@@ -28,6 +28,17 @@ export default class HistorySql extends BaseSql<History, HistoryRow>
         const sql = this.getSelect() + 'ORDER BY H.ID'
         const res = await this.execute(sql)
 
+        return this.fill(res, (row) => 
+             new History({
+                id: row.ID,
+                createdAt: row.CREATED_AT,
+                updatedAt: row.UPDATED_AT,
+
+                title: row.TITLE
+            })
+        )
+
+
         const histories: History[] = []; let history: History
         // fill the return array with unique HISTORY
         for(let i = 0; i < res.length; i++) {
@@ -42,7 +53,7 @@ export default class HistorySql extends BaseSql<History, HistoryRow>
 
                 title: res[i].TITLE
             })
-            // get lines with same ID and fill foreign keys
+            // get rows with same ID and fill foreign keys
             for(let j = i; j < res.length && res[j].ID == res[i].ID; j++)
                 history = this.fillForeignKeys(history, res[j])
 

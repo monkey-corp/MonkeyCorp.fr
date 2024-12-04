@@ -2,14 +2,14 @@ import { BaseModel } from "./BaseModel.ts"
 
 export default class Image extends BaseModel
 {
-    public data?: Blob | null
+    public data?: Buffer | null
     public alt?: string | null
     public caption?: string | null
 
     constructor(
         {id, createdAt, updatedAt, data, alt, caption} :
         BaseModel.CtorProps & {
-            data?: Blob | null
+            data?: Buffer | null
             alt?: string | null
             caption?: string | null
         } = {}

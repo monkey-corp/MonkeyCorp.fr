@@ -18,3 +18,6 @@ COPY --from=prod /docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
 
 # Initialize database
 COPY ./insert.sql /docker-entrypoint-initdb.d/1_insert.sql
+
+# Copy resources in a secure directory (see MySQL variable `secure_file_priv`)
+COPY ./resources /var/lib/mysql-files/resources
