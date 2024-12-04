@@ -95,3 +95,8 @@ VALUES (1, 1);
 
 INSERT INTO NEWS_PERSON(NEWS_ID, PERSON_ID)
 VALUES (1, 1);
+
+-- Minimal paragraph: 1 content
+
+INSERT INTO PARAGRAPH(ID, CONTENT)
+VALUES (2, 'A minimal paragraph');

@@ -141,7 +141,6 @@ const simple = {
       ),
     caption: 'Simple image'
 }
-const all = [minimal, simple]
 
 describe('ImageSql', () => { 
     describe('when IMAGE are loaded with keys', () => {
@@ -150,7 +149,7 @@ describe('ImageSql', () => {
                 const imageSql = new ImageSql(db)
                 const images = await imageSql.findByIds([2, 3])
 
-                Helper.expectArray(images, all)
+                Helper.expectArray(images, [minimal, simple])
             })
         })
     })
