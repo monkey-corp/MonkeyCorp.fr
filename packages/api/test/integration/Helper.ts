@@ -26,9 +26,19 @@ export default abstract class Helper
         return this.db
     }
 
-    public static expectMatch(obj: any, toMatch: any) {
-        expect(obj).toMatchObject(toMatch)
-        expect(obj).toHaveProperty('createdAt')
-        expect(obj).toHaveProperty('updatedAt')
+    public static expectMatch(actual: any, expected: any) {
+        expect(actual).toMatchObject(expected)
+        expect(actual).toHaveProperty('createdAt')
+        expect(actual).toHaveProperty('updatedAt')
+    }
+
+    public static expectArray(actual: any[], expected: any[]) {
+        expect(actual).toHaveLength(expected.length)
+        
+        // sort to not take account of order
+        actual = actual.sort(); expected = expected.sort()
+
+        for(let i = 0; i < expect.length; i++) 
+            this.expectMatch(actual[i], expected[i])
     }
 }

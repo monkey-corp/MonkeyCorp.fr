@@ -1,14 +1,11 @@
 import { ImageAggreg, ParagraphAggreg, PersonAggreg } from "./Aggregations.ts"
 import {BaseModel} from "./BaseModel.ts"
 
-export default class Fight extends BaseModel implements ParagraphAggreg, ImageAggreg, PersonAggreg
+interface Fight extends ParagraphAggreg, ImageAggreg, PersonAggreg {}
+class Fight extends BaseModel
 {
     public title?: string | null
     public summary?: string | null
-
-    public paragraphs: number[]
-    public images: number[]
-    public persons: number[]
 
     constructor(
         {
@@ -16,7 +13,7 @@ export default class Fight extends BaseModel implements ParagraphAggreg, ImageAg
             title, summary,
             paragraphs = [], images = [], persons = []
         }:
-        BaseModel.CtorParams & {
+        BaseModel.CtorProps & {
             title?: string | null,
             summary?: string | null,
             paragraphs?: number[],
@@ -34,3 +31,5 @@ export default class Fight extends BaseModel implements ParagraphAggreg, ImageAg
         this.persons = persons
     }
 }
+
+export default Fight

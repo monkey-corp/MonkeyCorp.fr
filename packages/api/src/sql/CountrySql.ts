@@ -1,20 +1,20 @@
-import BaseSql, { BaseRows } from "./BaseSql.ts";
+import BaseSql, { BaseRow } from "./BaseSql.ts";
 import Country from '../model/Country.ts'
 import { Connection } from "mysql2/promise";
 import { ImageAggregRow } from "./AggregationsSql.ts";
 
-interface CountryRows extends BaseRows, ImageAggregRow
+interface CountryRow extends BaseRow, ImageAggregRow
 {
     NAME: string
 }
 
-export default class CountrySql extends BaseSql<Country, CountryRows>
+export default class CountrySql extends BaseSql<Country, CountryRow>
 {
     constructor(db: Connection) {
         super(db)
     }
 
-    protected getSelect() {
+    protected override getSelect() {
         return `
             SELECT C.ID, C.CREATED_AT, C.UPDATED_AT, C.NAME, CI.IMAGE_ID
             FROM COUNTRY C
@@ -22,7 +22,7 @@ export default class CountrySql extends BaseSql<Country, CountryRows>
         `
     }
 
-    public async findById(id: number): Promise<Country> {
+    public override async findById(id: number): Promise<Country> {
         // get COUNTRY from the database
         const sql = this.getSelect() + 'WHERE C.ID=?'
         const res = await this.execute(sql, id)
@@ -36,6 +36,6 @@ export default class CountrySql extends BaseSql<Country, CountryRows>
             updatedAt: res[0].UPDATED_AT,
             name: res[0].NAME
         })
-        return this.fillForeignKeys(country, res)
+        return this.fillForeignKeysFromLines(country, res)
     }
 }

@@ -1,22 +1,22 @@
 import { Connection } from "mysql2/promise"
 import Fight from "../model/Fight.ts"
 import BaseSql from "./BaseSql.ts"
-import { BaseRows } from "./BaseSql.ts"
-import { ImageAggregRow as ImageAggregRows, ParagraphAggregRow as ParagraphAggregRows, PersonAggregRow as PersonAggregRows } from "./AggregationsSql.ts"
+import { BaseRow } from "./BaseSql.ts"
+import { ImageAggregRow, ParagraphAggregRow, PersonAggregRow } from "./AggregationsSql.ts"
 
-interface FightRows extends BaseRows, ParagraphAggregRows, ImageAggregRows, PersonAggregRows
+interface FightRow extends BaseRow, ParagraphAggregRow, ImageAggregRow, PersonAggregRow
 {
     TITLE: string,
     SUMMARY: string
 }
 
-export default class FightSql extends BaseSql<Fight, FightRows>
+export default class FightSql extends BaseSql<Fight, FightRow>
 {
     constructor(db: Connection) {
         super(db)
     }
 
-    protected getSelect() {
+    protected override getSelect() {
         return `
             SELECT 
                 F.ID, F.CREATED_AT, F.UPDATED_AT,
@@ -29,7 +29,7 @@ export default class FightSql extends BaseSql<Fight, FightRows>
         `
     }
 
-    public async findById(id: number): Promise<Fight> {
+    public override async findById(id: number): Promise<Fight> {
         // get FIGHT from the database
         const sql = this.getSelect() + 'WHERE F.ID=?'
         const res = await this.execute(sql, id)
@@ -45,6 +45,6 @@ export default class FightSql extends BaseSql<Fight, FightRows>
             title: res[0].TITLE,
             summary: res[0].SUMMARY
         })
-        return this.fillForeignKeys(fight, res)
+        return this.fillForeignKeysFromLines(fight, res)
     }
 }

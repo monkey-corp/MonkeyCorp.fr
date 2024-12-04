@@ -14,6 +14,7 @@ afterAll(async () => {
 })
 
 const minimal = {
+    id: 1,
     title: 'Minimal title',
     summary: 'Minimal summary',
     persons: [1],

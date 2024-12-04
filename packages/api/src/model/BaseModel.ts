@@ -1,6 +1,6 @@
 namespace BaseModel
 {
-    export type CtorParams = {
+    export type CtorProps = {
         id?: number,
         createdAt?: string | null,
         updatedAt?: string | null
@@ -13,7 +13,7 @@ abstract class BaseModel
     public createdAt?: string | null
     public updatedAt?: string | null
 
-    constructor({id, createdAt, updatedAt}: BaseModel.CtorParams = {}) {
+    constructor({id, createdAt, updatedAt}: BaseModel.CtorProps = {}) {
         this.id = id
         this.createdAt = createdAt
         this.updatedAt = updatedAt

@@ -1,14 +1,14 @@
 import { ImageAggreg } from "./Aggregations.ts"
 import {BaseModel} from "./BaseModel.ts"
 
-export default class Country extends BaseModel implements ImageAggreg
+interface Country extends ImageAggreg {}
+class Country extends BaseModel
 {
     public name?: string | null
-    public images: number[]
 
     constructor(
         {id, createdAt, updatedAt, name, images = []}:
-        BaseModel.CtorParams & {
+        BaseModel.CtorProps & {
             name?: string | null,
             images?: number[]
         } = {images: []}
@@ -19,3 +19,5 @@ export default class Country extends BaseModel implements ImageAggreg
         this.images = images
     }
 }
+
+export default Country

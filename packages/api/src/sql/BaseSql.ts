@@ -5,14 +5,14 @@ import { BaseModel } from "../model/BaseModel.ts";
 import { ImageAggregRow, ParagraphAggregRow, PersonAggregRow } from "./AggregationsSql.ts";
 import { ImageAggreg, ParagraphAggreg, PersonAggreg } from "../model/Aggregations.ts";
 
-export interface BaseRows extends RowDataPacket
+export interface BaseRow extends RowDataPacket
 {
     ID: number
     CREATED_AT: string | null
     UPDATED_AT: string  | null
 }
 
-export default abstract class BaseSql<T extends BaseModel, U extends BaseRows> 
+export default abstract class BaseSql<T extends BaseModel, U extends BaseRow> 
 {
     protected db: Connection
 
@@ -39,22 +39,34 @@ export default abstract class BaseSql<T extends BaseModel, U extends BaseRows>
     protected getSelect(): string {throw new NotImplementedError(`Method BaseSql.getSelect() must be implemented for class ${this.constructor.name}`)}
 
     /**
-     * Puts forein keys in the relevant arrays
+     * Puts some lines'forein keys in the relevant arrays
      */
-    protected fillForeignKeys(
+    protected fillForeignKeysFromLines(
         obj: T & (ParagraphAggreg | ImageAggreg | PersonAggreg), 
         lines: (U & (ParagraphAggregRow | ImageAggregRow | PersonAggregRow))[]
     ): T {
         for(let line of lines) {
-            if(line.PARAGRAPH_ID != null)
-                (obj as ParagraphAggreg).paragraphs.push(line.PARAGRAPH_ID)
-
-            if(line.IMAGE_ID != null)
-                (obj as ImageAggreg).images.push(line.IMAGE_ID)
-
-            if(line.PERSON_ID != null)
-                (obj as PersonAggreg).persons.push(line.PERSON_ID)
+            this.fillForeignKeys(obj, line)
         }
+        return obj
+    }
+
+    /**
+     * Puts a line's forein keys in the relevant arrays
+     */
+    protected fillForeignKeys(
+        obj: T & (ParagraphAggreg | ImageAggreg | PersonAggreg), 
+        line: U & (ParagraphAggregRow | ImageAggregRow | PersonAggregRow)
+    ): T {
+        if(line.PARAGRAPH_ID != null)
+            (obj as ParagraphAggreg).paragraphs.push(line.PARAGRAPH_ID)
+
+        if(line.IMAGE_ID != null)
+            (obj as ImageAggreg).images.push(line.IMAGE_ID)
+
+        if(line.PERSON_ID != null)
+            (obj as PersonAggreg).persons.push(line.PERSON_ID)
+
         return obj
     }
 }

@@ -1,18 +1,16 @@
 import { ImageAggreg, ParagraphAggreg, PersonAggreg } from "./Aggregations.ts"
 import { BaseModel } from "./BaseModel.ts"
 
-export default class News extends BaseModel implements ParagraphAggreg, ImageAggreg
+interface News extends ParagraphAggreg, ImageAggreg {}
+class News extends BaseModel
 {
     public title?: string | null
     public summary?: string | null
     public author?:string | null
     
-    public paragraphs: number[]
-    public images: number[]
-
     constructor(
-        {id, createdAt, updatedAt, title, summary, author, paragraphs, images}:
-        BaseModel.CtorParams & {
+        {id, createdAt, updatedAt, title, summary, author, paragraphs = [], images = []}:
+        BaseModel.CtorProps & {
             title?: string | null
             summary?: string | null
             author?:string | null
@@ -29,3 +27,5 @@ export default class News extends BaseModel implements ParagraphAggreg, ImageAgg
         this.images = images
     }
 }
+
+export default News

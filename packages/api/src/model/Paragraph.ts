@@ -6,7 +6,7 @@ export default class Paragraph extends BaseModel
 
     constructor(
         {id, createdAt, updatedAt, content}:
-        BaseModel.CtorParams & {
+        BaseModel.CtorProps & {
             content?: string | null
         } = {}
     ) {

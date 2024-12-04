@@ -1,14 +1,12 @@
 import { ImageAggreg, ParagraphAggreg } from "./Aggregations.ts"
 import {BaseModel} from "./BaseModel.ts"
 
-export default class About extends BaseModel implements ParagraphAggreg, ImageAggreg
+interface About extends ParagraphAggreg, ImageAggreg {}
+class About extends BaseModel 
 {
-    public paragraphs: number[]
-    public images: number[]
-
     constructor(
         {id, createdAt, updatedAt, paragraphs = [], images = []}: 
-        BaseModel.CtorParams & {
+        BaseModel.CtorProps & {
             paragraphs?: number[],
             images?:number[]
         } = {paragraphs: [], images: []}
@@ -19,3 +17,5 @@ export default class About extends BaseModel implements ParagraphAggreg, ImageAg
         this.images = images
     }
 }
+
+export default About

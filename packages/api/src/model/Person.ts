@@ -10,7 +10,7 @@ export default class Person extends BaseModel
         
     constructor(
         {id, createdAt, updatedAt, name, surname, email, phone, gender}:
-        BaseModel.CtorParams & {
+        BaseModel.CtorProps & {
             name?: string | null
             surname?: string | null
             email?: string | null

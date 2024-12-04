@@ -1,17 +1,17 @@
-import BaseSql, { BaseRows } from "./BaseSql.ts"
+import BaseSql, { BaseRow } from "./BaseSql.ts"
 import About from '../model/About.ts'
 import { Connection } from "mysql2/promise"
 import { ImageAggregRow, ParagraphAggregRow } from './AggregationsSql.ts'
 
-interface AboutRows extends BaseRows, ParagraphAggregRow, ImageAggregRow {}
+interface AboutRow extends BaseRow, ParagraphAggregRow, ImageAggregRow {}
 
-export default class AboutSql extends BaseSql<About, AboutRows>
+export default class AboutSql extends BaseSql<About, AboutRow>
 {
     constructor(db: Connection) {
         super(db)
     }
 
-    protected getSelect() {
+    protected override getSelect() {
         return `
             SELECT A.ID, A.CREATED_AT, A.UPDATED_AT, AI.IMAGE_ID, AP.PARAGRAPH_ID
             FROM ABOUT A
@@ -20,7 +20,7 @@ export default class AboutSql extends BaseSql<About, AboutRows>
         `
     }
 
-    public async findById(id: number): Promise<About> { 
+    public override async findById(id: number): Promise<About> { 
         // get ABOUT from the database
         const sql = this.getSelect() + 'WHERE A.ID=?'
         const res = await this.execute(sql, id)
@@ -34,6 +34,6 @@ export default class AboutSql extends BaseSql<About, AboutRows>
             updatedAt: res[0].UPDATED_AT
         })
         
-        return this.fillForeignKeys(about, res)
+        return this.fillForeignKeysFromLines(about, res)
     }
 }

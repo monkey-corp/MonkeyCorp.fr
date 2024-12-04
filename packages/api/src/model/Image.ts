@@ -8,7 +8,7 @@ export default class Image extends BaseModel
 
     constructor(
         {id, createdAt, updatedAt, data, alt, caption} :
-        BaseModel.CtorParams & {
+        BaseModel.CtorProps & {
             data?: Blob | null
             alt?: string | null
             caption?: string | null

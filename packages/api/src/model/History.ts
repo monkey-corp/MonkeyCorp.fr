@@ -1,14 +1,14 @@
+import { ImageAggreg, ParagraphAggreg } from "./Aggregations.ts"
 import { BaseModel } from "./BaseModel.ts"
 
-export default class History extends BaseModel
+interface History extends ParagraphAggreg, ImageAggreg {}
+class History extends BaseModel
 {
     public title?: string | null
-    public paragraphs: number[]
-    public images: number[]
 
     constructor(
-        {id, createdAt, updatedAt, title, paragraphs, images}:
-        BaseModel.CtorParams & {
+        {id, createdAt, updatedAt, title, paragraphs = [], images = []}:
+        BaseModel.CtorProps & {
             title?: string | null,
             paragraphs?: number[],
             images?: number[]
@@ -21,3 +21,5 @@ export default class History extends BaseModel
         this.images = images
     }
 }
+
+export default History
