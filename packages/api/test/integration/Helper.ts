@@ -1,16 +1,15 @@
+import 'dotenv/config'
 import { expect } from '@jest/globals'
 import mysql, { Connection, ConnectionOptions } from 'mysql2/promise'
 import DatabaseConnectionError from '../../src/error/DatabaseConnectionError.ts'
 
 export default abstract class Helper
 {
-    // Database credentials, defined in Dockfile and docker-compose
-    // TODO: secrets
     private static dbConfig: ConnectionOptions = {
-        host: 'db-dev',
-        database: 'monkey-corp-com',
-        user: 'root',
-        password: 'root'
+        host: process.env.DB_HOST,
+        database: process.env.DB_NAME,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD
     }
 
     private static db?: Connection
