@@ -1,28 +1,19 @@
-import 'dotenv/config'
 import { expect } from '@jest/globals'
-import mysql, { Connection, ConnectionOptions } from 'mysql2/promise'
-import DatabaseConnectionError from '../../src/error/DatabaseConnectionError.ts'
+import { Connection, ConnectionOptions } from 'mysql2/promise'
+import SqlConnnection from '../../src/SqlConnection'
 
 export default abstract class Helper
 {
-    private static dbConfig: ConnectionOptions = {
-        host: process.env.DB_HOST,
-        database: process.env.DB_NAME,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD
+    private static dbOptions: ConnectionOptions = {
+        host: 'db-dev',
+        database: 'monkey-corp-com',
+        user: 'root',
+        password: 'root'
     }
 
-    private static db?: Connection
-
     public static async getConnexion(): Promise<Connection> {
-        if(!this.db) 
-            try {
-                this.db = await mysql.createConnection(this.dbConfig)
-            }
-            catch(err) {
-                throw new DatabaseConnectionError(err)
-            }
-        return this.db
+        SqlConnnection.setOptions(this.dbOptions)
+        return SqlConnnection.get()
     }
 
     public static expectMatch(actual: any, expected: any) {
