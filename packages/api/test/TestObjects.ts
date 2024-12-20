@@ -1,5 +1,12 @@
 import { Gender } from "../src/model/Person"
 
+export namespace BaseSqlObjects {
+    export const minimal = {
+        id: 0,
+        createdAt: '0000-00-00',
+        updatedAt: '0000-00-00'
+    }
+}
 export namespace AboutObjects {
     export const minimal = {
         id: 1,
