@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import AboutSql from '../../../src/sql/AboutSql'
-import ManagerFactory from '../../../src/managers/ManagerFactory'
+import ManagerFactory from '../../../src/manager/ManagerFactory'
 import SqlConnection from "../../../src/SqlConnection";
 import Helper from "../../Helper";
 import About from "../../../src/model/About";

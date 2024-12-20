@@ -1,3 +1,4 @@
+import { Request, Response } from "express"
 import BaseSql from "../sql/BaseSql.ts";
 
 export default class Manager<T extends BaseSql<any,any>>
@@ -6,8 +7,7 @@ export default class Manager<T extends BaseSql<any,any>>
 
     public constructor( model: T ) { this.model = model }
 
-    // private async resolve(req: any, res: any, callback: (req: any, res: any) => Promise<void>) {
-    private async resolve(res: any, callback: () => Promise<void>) {
+    private async resolve(res: Response, callback: () => Promise<void>) {
         try {
             callback()
         } catch(err) {
@@ -15,21 +15,21 @@ export default class Manager<T extends BaseSql<any,any>>
         }
     }
 
-    public async findById(req: any, res: any) {
+    public async findById(req: Request, res: Response) {
         this.resolve(res, async () => {
-            const result = await this.model.findById(req.params.id)
+            const result = await this.model.findById(+req.params.id)
             res.status(200).json(result)
         })
         res.send()
     }
-    public async findByIds(req: any, res: any) {
+    public async findByIds(req: Request, res: Response) {
         this.resolve(res, async () => {
             const result = await this.model.findByIds(req.body.ids)
             res.status(200).json(result)
         })
         res.send()
     }
-    public async findAll(req: any, res: any) {
+    public async findAll(req: Request, res: Response) {
         this.resolve(res, async () => {
             const result = await this.model.findAll()
             res.status(200).json(result)

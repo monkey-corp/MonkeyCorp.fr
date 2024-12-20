@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals
 import BaseSql from '../../../src/sql/BaseSql';
 import { BaseSqlObjects } from '../../TestObjects';
 import Helper from '../../Helper';
-import Manager from '../../../src/managers/Manager';
+import Manager from '../../../src/manager/Manager';
 
 let res: any
 beforeEach(() => {

@@ -1,6 +1,7 @@
 import { expect, jest } from '@jest/globals'
 import { Connection, ConnectionOptions } from 'mysql2/promise'
 import SqlConnnection from '../src/SqlConnection'
+import { Request, Response } from 'express'
 
 export default abstract class Helper
 {
@@ -32,20 +33,22 @@ export default abstract class Helper
             this.expectMatchSql(actual[i], expected[i])
     }
 
-    public static mockRequest = (body = {}, params = {}, query = {}, headers = {}) => ({
-        body,
-        params,
-        query,
-        headers,
-    });
+    public static mockRequest(body = {}, params = {}, query = {}, headers = {}) {
+        return {
+            body,
+            params,
+            query,
+            headers
+        } as Request
+    }
 
-    public static mockResponse = () => {
+    public static mockResponse() {
         const res: {send?: any, status?: any, json?: any} = {};
         res.send = jest.fn().mockReturnValue(res);
         res.status = jest.fn().mockReturnValue(res);
         res.json = jest.fn().mockReturnValue(res);
         return res;
-    };
+    }
 
     public static expectResponseSuccess(resMock: any) {
         expect(resMock.status).toHaveBeenCalledWith(200)

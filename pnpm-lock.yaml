@@ -27,6 +27,9 @@ importers:
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.0
+      '@types/express-serve-static-core':
+        specifier: ^5.0.2
+        version: 5.0.2
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -1450,6 +1453,9 @@ packages:
 
   '@types/express-serve-static-core@5.0.0':
     resolution: {integrity: sha512-AbXMTZGt40T+KON9/Fdxx0B2WK5hsgxcfXJLr5bFpZ7b4JCex2WyQPTEKdXqfHiY5nKKBScZ7yCoO6Pvgxfvnw==}
+
+  '@types/express-serve-static-core@5.0.2':
+    resolution: {integrity: sha512-vluaspfvWEtE4vcSDlKRNer52DvOGrB2xv6diXy6UKyKW0lqZiWHGNApSyxOv+8DE5Z27IzVvE7hNkxg7EXIcg==}
 
   '@types/express@4.17.21':
     resolution: {integrity: sha512-ejlPM315qwLpaQlQDTjPdsUFSc6ZsP4AN6AlWnogPjQ7CVi7PYF3YVz+CY3jE2pwYf7E/7HlDAN0rV2GxTG0HQ==}
@@ -8422,6 +8428,13 @@ snapshots:
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
 
+  '@types/express-serve-static-core@5.0.2':
+    dependencies:
+      '@types/node': 22.10.1
+      '@types/qs': 6.9.16
+      '@types/range-parser': 1.2.7
+      '@types/send': 0.17.4
+
   '@types/express@4.17.21':
     dependencies:
       '@types/body-parser': 1.19.5
@@ -8432,7 +8445,7 @@ snapshots:
   '@types/express@5.0.0':
     dependencies:
       '@types/body-parser': 1.19.5
-      '@types/express-serve-static-core': 5.0.0
+      '@types/express-serve-static-core': 5.0.2
       '@types/qs': 6.9.16
       '@types/serve-static': 1.15.7
 
