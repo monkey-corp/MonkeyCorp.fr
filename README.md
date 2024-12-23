@@ -22,6 +22,7 @@ Penser à définir l'environnement :
 
 - Le mot de passe du *root* en créant le fichier `database/root-password.secret` contenant ce dernier. 
 - Le *host* en créant le fichier `database/root-host.secret` contenant ce dernier.
+- Les credentials de connexion dans `packages/api/.env`.
 
 > Cf. les fichiers `.example` dans `database/`
 
