@@ -3,6 +3,7 @@ import { Connection } from "mysql2/promise"
 import Helper from "../Helper"
 import { Gender } from '../../../src/model/Person.ts'
 import PersonSql from '../../../src/sql/PersonSql.ts'
+import { PersonObjects } from "../../TestObjects.ts"
 
 let db: Connection
 
@@ -14,14 +15,6 @@ afterAll(async () => {
     if(db) await db.end()
 })
 
-const minimal = {
-    id: 2,
-    name: 'Minimal',
-    surname: 'Person',
-    email: 'minimal.person@mail.com',
-    gender: Gender.O
-}
-
 describe('PersonSql', () => {
     describe('when PERSON are loaded with keys', () => {
         describe('and the keys are: 2', () => {
@@ -29,7 +22,7 @@ describe('PersonSql', () => {
                 const personSql = new PersonSql(db)
                 const persons = await personSql.findByIds([2])
 
-                Helper.expectArray(persons, [minimal])
+                Helper.expectArray(persons, [PersonObjects.minimal])
             })
         })
     })

@@ -2,6 +2,7 @@ import { beforeAll, afterAll, describe, it, expect } from "@jest/globals"
 import FightSql from "../../../src/sql/FightSql.ts"
 import Helper from "../Helper.ts"
 import { Connection } from "mysql2/promise"
+import { FightObjects } from "../../TestObjects.ts"
 
 let db: Connection 
 
@@ -12,14 +13,6 @@ beforeAll(async () => {
 afterAll(async () => {
     if(db) await db.end()
 })
-
-const minimal = {
-    id: 1,
-    title: 'Minimal title',
-    summary: 'Minimal summary',
-    persons: [1],
-    paragraphs: [1]
-}
 
 describe('FightSql', () => {
     describe('when FIGHT is loaded by key', () => {
@@ -36,7 +29,7 @@ describe('FightSql', () => {
                 const fightSql = new FightSql(db)
                 const fight = await fightSql.findById(1)
 
-                Helper.expectMatch(fight, minimal)
+                Helper.expectMatch(fight, FightObjects.minimal)
             })
         })
     })

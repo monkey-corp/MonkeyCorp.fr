@@ -1,11 +1,11 @@
+import 'dotenv/config'
 //TODO
-import express from 'express'
-import About from './model/About.ts'
+import express, { Request, Response } from "express"
 
 const app = express()
 const port = 5000
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!')
 })
 

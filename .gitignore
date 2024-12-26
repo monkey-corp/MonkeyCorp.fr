@@ -24,4 +24,8 @@ database/datavolume/
 ## Build
 
 coverage/
+
+## Secrets
+
 *.secret
+.env

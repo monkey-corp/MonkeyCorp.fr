@@ -2,6 +2,7 @@ import { beforeAll, afterAll, describe, it, expect } from "@jest/globals"
 import CountrySql from "../../../src/sql/CountrySql.ts"
 import Helper from "../Helper.ts"
 import { Connection } from "mysql2/promise"
+import { CountryObjects } from "../../TestObjects.ts"
 
 let db: Connection
 
@@ -12,12 +13,6 @@ beforeAll(async () => {
 afterAll(async () => {
     if (db) await db.end()
 })
-
-const minimal = {
-    id: 1,
-    name: 'Minimal country',
-    images: [1]
-}
 
 describe('CountrySql', () => {
     describe('when COUNTRY is loaded by key', () => {
@@ -34,7 +29,7 @@ describe('CountrySql', () => {
                 const countrySql = new CountrySql(db)
                 const country = await countrySql.findById(1)
 
-                Helper.expectMatch(country, minimal)
+                Helper.expectMatch(country, CountryObjects.minimal)
             })
         })
     })
